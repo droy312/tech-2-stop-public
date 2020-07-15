@@ -39,14 +39,8 @@ class _AuthenticateState extends State<Authenticate> {
               child: Column(
                 children: <Widget>[
                   Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text('TECH', style: style(Colors.white, 48, true)),
-                        Text('2', style: style(Colors.yellow, 48, true)),
-                        Text('STOP', style: style(Colors.white, 48, true)),
-                      ],
-                    ),
+                    width: MediaQuery.of(context).size.width - 100,
+                    child: Image.asset('images/tech2stop_header_logo.jpeg', fit: BoxFit.fitWidth),
                   ),
                   Container(
                     margin: EdgeInsets.only(left: 30.0, right: 30.0, top: 10.0),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tech_two_stop/screens/category_news/category_news.dart';
 import '../../common_widgets/article_card.dart';
 import '../../common_widgets/category_tile.dart';
 import '../../helper/category_data.dart';
@@ -50,32 +51,6 @@ class _HomePageState extends State<HomePage> {
   // https://www.tech2stop.com/wpautoterms/privacy-policy/
 
   // ------------- USING -------------------
-
-  Widget topBar() {
-    return Container(
-      width: double.infinity,
-      margin: EdgeInsets.only(right: 10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Builder(
-            builder: (context) => IconButton(
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-              icon: Icon(
-                Icons.menu,
-                //color: r.black,
-                color: Colors.white,
-              ),
-            ),
-          ),
-          r.customLogo,
-          Icon(null),
-        ],
-      ),
-    );
-  }
 
   Widget listTile({String title, IconData icon, String url}) {
     return ListTile(
@@ -138,16 +113,31 @@ class _HomePageState extends State<HomePage> {
                 title: 'Product decider',
                 url: 'https://www.tech2stop.com/product-decider/',
               ),
+              ListTile(
+                leading: Icon(Icons.language, color: Colors.grey[800]),
+                title: Text('Covid Corner',
+                    style: r.style(Colors.grey[800], 16, r.f4)),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CategoryNews(categoryId: 5328, categoryName: 'COVID-19',)
+                      ));
+                },
+              ),
               listTile(
                 icon: Icons.security,
                 title: 'Privacy policy',
                 url: 'https://www.tech2stop.com/wpautoterms/privacy-policy/',
               ),
-              widget.isSkip ? Container() : ListTile(
-                leading: Icon(Icons.exit_to_app, color: Colors.grey[800]),
-                title: Text('Logout', style: r.style(Colors.grey[800], 16, r.f4)),
-                onTap: () => AuthService().signOut(),
-              ),
+              widget.isSkip
+                  ? Container()
+                  : ListTile(
+                      leading: Icon(Icons.exit_to_app, color: Colors.grey[800]),
+                      title: Text('Logout',
+                          style: r.style(Colors.grey[800], 16, r.f4)),
+                      onTap: () => AuthService().signOut(),
+                    ),
             ],
           ),
         ),
@@ -167,12 +157,25 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: r.bgColor,
       appBar: AppBar(
-        centerTitle: false,
+        centerTitle: true,
         //backgroundColor: r.bgColor,
         backgroundColor: Colors.black,
         elevation: 0.0,
         automaticallyImplyLeading: false,
-        title: topBar(),
+        leading: Container(
+          child: Builder(
+            builder: (context) {
+              return IconButton(
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
+                icon: Icon(Icons.menu, color: Colors.white),
+              );
+            },
+          ),
+        ),
+        title: Image.asset('images/tech2stop_header_logo.jpeg',
+            fit: BoxFit.fitHeight, height: 20),
       ),
       drawer: SafeArea(
         child: Drawer(child: drawerWidget()),
